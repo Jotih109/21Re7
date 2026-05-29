@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jogo 21</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+  <!-- LOADING -->
+  <div id="screen-loading" class="screen active">
+    <div style="font-size:40px;margin-bottom:20px;">🃏</div>
+    <div class="loading-dots">Preparando o baralho</div>
+  </div>
+
+  <!-- TITLE -->
+  <div id="screen-title" class="screen">
+    <div class="title-main">21</div>
+    <div class="title-sub">Batalha de Cartas</div>
+    <p class="title-lore">Sete oponentes aguardam. Cada um mais perigoso que o anterior. Você tem cinco vidas — não as desperdice.</p>
+    <button class="btn" onclick="startGame()">Começar Batalha</button>
+  </div>
+
+  <!-- GAME -->
+  <div id="screen-game" class="screen">
+    <div id="hud">
+      <div>
+        <div class="hud-title" style="margin-bottom:6px;">Suas Vidas</div>
+        <div class="hud-lives" id="player-hearts"></div>
+      </div>
+      <div class="hud-title" id="hud-title">JOGO 21</div>
+      <div class="hud-progress" id="hud-progress">Oponente 1/7</div>
+      <div class="hud-progress" id="control-status">Controle: Você</div>
+    </div>
+
+    <div id="opponent-banner" class="opponent-banner"></div>
+
+    <div class="deck-info" id="deck-info">Baralho: —</div>
+
+    <div class="arena">
+      <div class="arena-side" id="arena-opponent">
+        <div class="arena-label">Oponente</div>
+        <div class="cards-row" id="opp-cards"></div>
+        <div class="score-badge"><span class="score-num" id="opp-score">—</span></div>
+        <div id="opp-stopped"></div>
+      </div>
+      <div class="arena-side" id="arena-player">
+        <div class="arena-label">Você</div>
+        <div class="cards-row" id="player-cards"></div>
+        <div class="score-badge"><span class="score-num" id="player-score">—</span></div>
+        <div id="player-stopped"></div>
+      </div>
+    </div>
+
+    <div id="round-log"></div>
+
+    <div id="result-overlay">
+      <div class="result-title" id="result-title"></div>
+      <div class="result-detail" id="result-detail"></div>
+      <button class="btn sm" id="result-btn" onclick="nextRound()">Próxima Rodada</button>
+    </div>
+
+    <div id="action-area">
+      <div class="action-row">
+        <button class="btn" id="btn-hit" onclick="playerHit()">Comprar Carta</button>
+        <button class="btn danger" id="btn-stand" onclick="playerStand()">Parar</button>
+      </div>
+    </div>
+
+    <div class="cards-used-area" id="used-area" style="display:none">
+      <div class="cards-used-label">Cartas Jogadas Nesta Rodada</div>
+      <div class="cards-used-row" id="used-cards-row"></div>
+    </div>
+  </div>
+
+  <!-- GAME OVER -->
+  <div id="screen-gameover" class="screen">
+    <div class="go-icon">💀</div>
+    <div class="go-title">Derrota</div>
+    <p class="go-sub">Suas vidas acabaram. A batalha chegou ao fim.</p>
+    <button class="btn" onclick="restartGame()">Tentar Novamente</button>
+  </div>
+
+  <!-- VICTORY -->
+  <div id="screen-victory" class="screen">
+    <div class="go-icon">👑</div>
+    <div class="go-title">Vitória!</div>
+    <p class="go-sub">Você derrotou todos os 7 oponentes. Lendário.</p>
+    <button class="btn" onclick="restartGame()">Jogar Novamente</button>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
