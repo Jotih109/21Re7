@@ -11,13 +11,11 @@
   --green: #27ae60;
   --green-dim: rgba(39,174,96,0.25);
   --text: #e8dcc8;
-  --text-dim: rgba(232,220,200,0.45);
-  --text-muted: rgba(232,220,200,0.25);
   --hp-red: #e74c3c;
   --hp-empty: rgba(255,255,255,0.08);
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0;}
 
 body {
   background: var(--bg);
@@ -25,9 +23,9 @@ body {
   font-family: 'Crimson Text', serif;
   min-height: 100vh;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding: 20px 12px 40px;
+  padding: 20px 12px;
 }
 
 #app {
@@ -89,7 +87,6 @@ body {
 .btn:hover { background: var(--gold-dim); box-shadow: 0 0 20px rgba(201,168,76,0.2); }
 .btn:active { transform: scale(0.97); }
 .btn:disabled { opacity: 0.3; cursor: not-allowed; }
-.btn.danger { border-color: var(--red); color: var(--red); background: var(--red-dim); }
 .btn.danger:hover { background: rgba(192,57,43,0.4); }
 .btn.sm { font-size: 12px; padding: 9px 22px; letter-spacing: 2px; }
 
@@ -118,10 +115,11 @@ body {
 
 .hud-title {
   font-family: 'Cinzel', serif;
-  font-size: 11px;
-  letter-spacing: 4px;
-  color: var(--text-muted);
+  font-size: 1.6em;
+  letter-spacing: 2px;
+  color: var(--gold);
   text-transform: uppercase;
+  text-align: center;
 }
 
 .hud-progress {
@@ -129,6 +127,7 @@ body {
   font-size: 12px;
   color: var(--text-dim);
   letter-spacing: 2px;
+  color: white;
 }
 
 /* OPPONENT CARD */
@@ -171,14 +170,14 @@ body {
 
 .opponent-name {
   font-family: 'Cinzel', serif;
-  font-size: 16px;
+  font-size: 1.5em;
   font-weight: 600;
   color: var(--gold);
   margin-bottom: 4px;
 }
 
 .opponent-desc {
-  font-size: 13px;
+  font-size: 1em;
   color: var(--text-dim);
   font-style: italic;
   margin-bottom: 8px;
@@ -220,7 +219,7 @@ body {
 
 .arena-label {
   font-family: 'Cinzel', serif;
-  font-size: 10px;
+  font-size: 0.7em;
   letter-spacing: 3px;
   color: var(--text-muted);
   text-transform: uppercase;
@@ -261,8 +260,7 @@ body {
   to { transform: none; opacity: 1; }
 }
 
-.card.red { color: #c0392b; }
-.card.black { color: #1a1a1a; }
+.card.black { color: #1a1a1a;}
 
 .card.hidden {
   background: #1b3a6b;
@@ -305,6 +303,7 @@ body {
 .card-suit-big {
   font-size: 28px;
   margin-top: 2px;
+  color: black;
 }
 
 .score-badge {
@@ -322,7 +321,6 @@ body {
   color: var(--text);
 }
 
-.score-badge .score-num.danger { color: var(--hp-red); }
 .score-badge .score-num.safe { color: var(--green); }
 
 .stopped-badge {
@@ -424,7 +422,7 @@ body {
 }
 .cards-used-label {
   font-family: 'Cinzel', serif;
-  font-size: 10px;
+  font-size: 1em;
   letter-spacing: 3px;
   color: var(--text-muted);
   margin-bottom: 8px;
@@ -447,9 +445,8 @@ body {
   font-weight: 800;
   position: relative;
   box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  margin: 2px;
 }
-.used-card-mini.red { color: #c0392b; }
-.used-card-mini.black { color: rgba(232,220,200,0.7); }
 
 /* GAME OVER / VICTORY SCREENS */
 #screen-gameover, #screen-victory {
@@ -511,4 +508,37 @@ body {
 }
 @keyframes dots {
   0% { content: '.'; } 33% { content: '..'; } 66% { content: '...'; }
+}
+
+.meio{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.used-card-mini {color: rgba(232,220,200,0.7); font-size: 1.3em;}
+.cuidado {
+  background-color: rgba(192,57,43,0.3);
+  border-color: rgba(192,57,43,0.5);
+  color: var(--red);
+}
+.cuidado:hover {
+  background-color: rgba(192,57,43,0.5);
+  box-shadow: 0 0 10px rgba(192,57,43,0.7);
+}
+
+.cash{
+  background-color: rgba(39,174,96,0.3);
+  border-color: rgba(39,174,96,0.5);
+}
+.cash:hover {
+  background-color: rgba(39,174,96,0.5);
+  box-shadow: 0 0 10px rgba(39,174,96,0.7);
+}
+
+.difa{
+  background-color: #151518;
+  padding: 1em 1.5em;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.05);
 }
