@@ -3,7 +3,7 @@ const SUITS = { S:'♠', H:'♥', D:'♦', C:'♣' };
 const RED = new Set(['H','D']);
 const WINS_TO_DEFEAT = 2;
 
-const CARD_DISPLAY = { ACE:'1', JACK:'12', QUEEN:'11' };
+const CARD_DISPLAY = { ACE:'A', JACK:'J', QUEEN:'Q' };
 const CARD_SCORE   = { ACE:1,   JACK:12,   QUEEN:11  };
 
 const ALL_VALUES = ['ACE','2','3','4','5','6','7','8','9','10','JACK','QUEEN'];
@@ -100,6 +100,7 @@ function newGame() {
     phase: 'loading',
     usedPublic: [],
     roundNumber: 0,
+    logHistory: [],
     // Cartas especiais
     playerSpecials: [],       // mão de especiais do jogador
     opponentSpecials: [],     // mão de especiais do bot
@@ -696,7 +697,13 @@ function renderGoalBadge() {
   if (!el) return;
   const goal = G.roundGoal || 21;
   el.textContent = `Meta: ${goal}`;
-  el.style.color = goal !== 21 ? '#f1c40f' : 'var(--text-muted)';
+  el.className = goal !== 21 ? 'goal-badge active' : 'goal-badge';
+}
+
+function renderRoundInfo() {
+  const el = document.getElementById('round-info');
+  if (!el) return;
+  el.textContent = `Rodada ${G.roundNumber} / ${OPPONENTS.length}`;
 }
 
 // ─── UI ──────────────────────────────────────────────────────────
@@ -709,9 +716,12 @@ function renderCard(card, hidden, glow) {
   if (hidden) return `<div class="card hidden" title="Carta escondida"></div>`;
   const col = isRed(card.suit) ? 'red' : 'black';
   const num = vDisplay(card.value);
+  const suit = sSymbol(card.suit);
   const glowClass = glow ? ' secret-glow' : '';
-  return `<div class="card ${col}${glowClass}" title="${num}">
-    <div class="card-suit-big">${num}</div>
+  return `<div class="card ${col}${glowClass}" title="${num} ${suit}">
+    <div class="card-corner">${num}<span>${suit}</span></div>
+    <div class="card-corner card-corner-bot">${num}<span>${suit}</span></div>
+    <div class="card-suit-big">${suit}</div>
   </div>`;
 }
 
@@ -797,6 +807,7 @@ function renderArena(revealBoth) {
     G.opponentStopped ? '<div class="stopped-badge">Parou</div>' : '';
 
   setActiveSide(G.activeSide);
+  renderRoundInfo();
   renderHelpPanel();
   renderGoalBadge();
   renderBotSpecialUsed();
@@ -825,7 +836,12 @@ function updateDeckInfo() {
 }
 
 function setLog(html, cls='') {
-  document.getElementById('round-log').innerHTML = `<div class="log-line ${cls}">${html}</div>`;
+  const entry = { html, cls };
+  G.logHistory.push(entry);
+  if (G.logHistory.length > 5) G.logHistory.shift();
+
+  const lines = G.logHistory.map(item => `<div class="log-line ${item.cls}">${item.html}</div>`).join('');
+  document.getElementById('round-log').innerHTML = lines;
 }
 
 function setActions(showHit, showStand) {
@@ -895,6 +911,7 @@ async function startRound() {
   G.harvestActive  = false;
   G.roundGoal      = 21;
   G.lastOpponentSpecialUsed = null;
+  G.logHistory = [];
   hideResult();
 
   renderArena(false);
